@@ -3,6 +3,7 @@
     <hr />
     <small>{{ pageState.title }}</small>
     <h2 class="display-1"> {{ pageState.counter }} </h2>
+    <h2 class="display-1" ref="lblCounter">{{ counter }}</h2>
     <button class="btn btn-success mx-1" @click="modifyCounter(1)">加1个</button>
     <button class="btn btn-danger mx-1" @click="modifyCounter(-1)">减1个</button>
     <hr />
@@ -22,11 +23,13 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, watch, onMounted, onUnmounted, onUpdated } from 'vue';
+import { ref, reactive, computed, watch, onMounted, onUnmounted, onUpdated, nextTick } from 'vue';
 import { vFocus } from '@/directives/vFocus'
 
+const counter = ref(100);
 const pageTitle = ref("value for page title");
 const inputTitle = ref(null);
+const lblCounter = ref(null);
 
 const btnOnClick = () => {
   // inputTitle: 引用声明
@@ -56,7 +59,8 @@ onUnmounted(() => {
 
 onUpdated(() => {
   // !不要在 updated 钩子中更改组件的状态，这可能会导致无限的更新循环!
-  console.log("HomeView.onUpdated", pageState.counter)
+  console.log("HomeView.onUpdated 1", pageState.counter)
+  console.log("HomeView.onUpdated 2", lblCounter.value.innerText) // this would always get new value
 })
 
 watch(() => pageState.counter, (newValue, oldValue) => {
@@ -68,6 +72,15 @@ watch(() => pageState.counter, (newValue, oldValue) => {
 
 const modifyCounter = (value) => {
   pageState.counter += value
+  counter.value += value;
+
+
+  // class 24, for async update knowledge
+  console.log("lblCounter [before improve]:", lblCounter.value.innerText);// this would be old value
+  // how to improve?
+  nextTick(() => {
+    console.log("lblCounter [after improve]:", lblCounter.value.innerText);// this would be new value
+  });
 }
 
 // 在模板中启用 v-focus
