@@ -1,19 +1,22 @@
 <template>
   <main>
-    <h1>{{ pageTitle }}</h1>
     <hr />
     <small>{{ pageState.title }}</small>
     <h2 class="display-1"> {{ pageState.counter }} </h2>
-    <h6 class="text-primary fw-bold">{{ odd_even }}</h6>
     <button class="btn btn-success mx-1" @click="modifyCounter(1)">加1个</button>
     <button class="btn btn-danger mx-1" @click="modifyCounter(-1)">减1个</button>
     <hr />
-    <input type="text" v-model="pageState.title" />
+    <div class="d-flex flex-column">
+      <input type="text" class="m-1" />
+      <input type="text" class="m-1" v-focus />
+      <input type="text" class="m-1" />
+    </div>
   </main>
 </template>
 
 <script setup>
 import { reactive, computed, watch, onMounted, onUnmounted, onUpdated } from 'vue';
+import { vFocus } from '@/directives/vFocus'
 
 const pageTitle = "Vue3其乐无穷啊！"
 
@@ -50,4 +53,14 @@ watch(() => pageState.counter, (newValue, oldValue) => {
 const modifyCounter = (value) => {
   pageState.counter += value
 }
+
+// 在模板中启用 v-focus
+/**
+const vFocus = {
+  mounted: (el) => {
+    el.focus()
+    el.value = "input text"
+  }
+}
+*/
 </script>
