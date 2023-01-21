@@ -9,6 +9,8 @@
         <RouterLink to="/about">关于</RouterLink>
         <RouterLink to="/blogs">博客</RouterLink>
         <RouterLink to="/blogs2">博客 2</RouterLink>
+        <RouterLink to="/pinia1">Pinia 1</RouterLink>
+        <RouterLink to="/pinia2">Pinia 2</RouterLink>
       </nav>
     </div>
   </header>
