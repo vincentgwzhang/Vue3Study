@@ -11,14 +11,30 @@
       <input type="text" class="m-1" v-focus />
       <input type="text" class="m-1" />
     </div>
+
+
+    <!--class 23 begin-->
+    <hr />
+    <input type="text" v-model="pageTitle" ref="inputTitle" />
+    <button class="btn btn-primary ms-1" @click="btnOnClick">设定</button>
+    <!--class 23 end-->
   </main>
 </template>
 
 <script setup>
-import { reactive, computed, watch, onMounted, onUnmounted, onUpdated } from 'vue';
+import { ref, reactive, computed, watch, onMounted, onUnmounted, onUpdated } from 'vue';
 import { vFocus } from '@/directives/vFocus'
 
-const pageTitle = "Vue3其乐无穷啊！"
+const pageTitle = ref("value for page title");
+const inputTitle = ref(null);
+
+const btnOnClick = () => {
+  // inputTitle: 引用声明
+  // inputTitle.value: 引用的对象
+  // inputTitle.value.value: 引用的对象的 value 属性
+  console.log(inputTitle.value.value);
+};
+
 
 const pageState = reactive({
   counter: 100,

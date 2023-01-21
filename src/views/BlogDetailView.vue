@@ -17,7 +17,12 @@
   
   <script setup>
   import { useRouter } from "vue-router";
-  
+  /**
+   * 
+   import { useRoute } from "vue-router";
+   const route = useRoute();
+   route.params.id;
+   */
   const router = useRouter();
   
   const gotoHome = () => {
