@@ -1,9 +1,8 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
   <header>
+    <div class="d-flex flex-row-reverse text-secondary">
+          {{ globalData.name }} / {{ globalData.uid }}
+    </div>
     <div class="wrapper">
       <nav>
         <RouterLink to="/">主页</RouterLink>
@@ -16,6 +15,19 @@ import { RouterLink, RouterView } from 'vue-router'
 
   <RouterView />
 </template>
+
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+import { reactive, provide } from "vue";
+
+const globalData = reactive({
+  uid: 1001,
+  name: "Koma",
+  email: "xiaoma@komavideo.com",
+});
+
+provide("globalData", globalData);
+</script>
 
 <style scoped>
 header {

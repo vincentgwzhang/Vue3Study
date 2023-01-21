@@ -3,9 +3,10 @@
     <hr />
     <small>{{ pageState.title }}</small>
     <h2 class="display-1"> {{ pageState.counter }} </h2>
-    <h2 class="display-1" ref="lblCounter">{{ counter }}</h2>
+    <h2 class="display-1" ref="lblCounter">{{ counterData.count }}</h2>
     <button class="btn btn-success mx-1" @click="modifyCounter(1)">加1个</button>
     <button class="btn btn-danger mx-1" @click="modifyCounter(-1)">减1个</button>
+    <p>{{ odd_even }}</p>
     <hr />
     <div class="d-flex flex-column">
       <input type="text" class="m-1" />
@@ -25,6 +26,8 @@
 <script setup>
 import { ref, reactive, computed, watch, onMounted, onUnmounted, onUpdated, nextTick } from 'vue';
 import { vFocus } from '@/directives/vFocus'
+import { useCounter } from "@/use/useCounter";
+const { counterData, odd_even } = useCounter();
 
 const counter = ref(100);
 const pageTitle = ref("value for page title");
@@ -42,11 +45,6 @@ const btnOnClick = () => {
 const pageState = reactive({
   counter: 100,
   pageTitle: "我的计数器"
-})
-
-const odd_even = computed(() => {
-  if (pageState.counter % 2 == 0) return "偶数"
-  else return "奇数"
 })
 
 onMounted(() => {
@@ -73,6 +71,7 @@ watch(() => pageState.counter, (newValue, oldValue) => {
 const modifyCounter = (value) => {
   pageState.counter += value
   counter.value += value;
+  counterData.count +=value;
 
 
   // class 24, for async update knowledge
